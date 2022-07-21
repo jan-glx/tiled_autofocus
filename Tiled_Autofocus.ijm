@@ -16,7 +16,7 @@ Stack.getDimensions(width, height, channels, slices, frames);
 
 //Check its in the correct format
 if (channels>1) {exit("The hyperstack has 2-channels please reduce dimensionality")} else{}
-if (channels==frames) {exit("The stack does not contain multiple z-positions")} else{}
+if (slices==1) {exit("The stack does not contain multiple z-positions")} else{}
 
 //Prompt for divider
 Dialog.create("Select number of tiles");
@@ -35,6 +35,8 @@ Stack.getDimensions(width, height, channels, slices, frames);
 
 x = 0;
 y = 0;
+full_width = width
+full_height = height
 width = width/tiles;
 height = height/tiles;
 spacing = 0;
@@ -91,7 +93,7 @@ if (isOpen(StackID+"_Focused")){
                 if (z==0) {run("Add Slice");}
             }
             else{
-                newImage(StackID+"_Focused", type, 512, 512, 1);
+                newImage(StackID+"_Focused", type, full_width, full_height, 1);
             }
 run("Restore Selection");
 run("Paste");
